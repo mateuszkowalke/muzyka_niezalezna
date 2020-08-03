@@ -1,0 +1,21 @@
+[[source]]
+name = "pypi"
+url = "https://pypi.org/simple"
+verify_ssl = true
+
+[dev-packages]
+
+[packages]
+django = "*"
+gunicorn = "*"
+djangorestframework = "*"
+django-rest-knox = "*"
+django-environ = "*"
+pytest-django = "*"
+psycopg2 = "*"
+faker = "*"
+factory-boy = "*"
+pytest-cov = "*"
+
+[requires]
+python_version = "3.8"
