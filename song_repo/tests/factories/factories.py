@@ -25,9 +25,13 @@ class CoverFactory(factory.DjangoModelFactory):
     class Meta:
         model = Cover
 
-    small = factory.django.FileField(filename=fake.file_name())
-    medium = factory.django.FileField(filename=fake.file_name())
-    large = factory.django.FileField(filename=fake.file_name())
+    # TODO
+    # small = factory.django.FileField(
+    #     data=b'small cover image', filename='fake_small_cover.jpg')
+    # medium = factory.django.FileField(
+    #     data=b'medium cover image', filename='fake_medium_cover.jpg')
+    # large = factory.django.FileField(
+    #     data=b'large cover image', filename='fake_large_cover.jpg')
 
 
 class GenreFactory(factory.DjangoModelFactory):
@@ -71,7 +75,8 @@ class SongFactory(factory.DjangoModelFactory):
 
     title = fake.text(max_nb_chars=128)
     cover = factory.SubFactory(CoverFactory)
-    file = factory.django.FileField(filename=fake.file_name())
+    # TODO
+    # file = factory.django.FileField(data=b'song', filename='fake_song.mp3')
     duration = fake.random_digit()
     release_date = fake.date()
     downloads = fake.random_digit()
@@ -111,7 +116,13 @@ class PlaylistFactory(factory.DjangoModelFactory):
         model = Playlist
 
     name = fake.text(max_nb_chars=128)
-    songs = factory.SubFactory(SongFactory)
-    # TODO
-    owner = None
     public = fake.boolean()
+
+    @factory.post_generation
+    def songs(self, create, extracted, **kwargs):
+        if not create:
+            return
+
+        if extracted:
+            for song in extracted:
+                self.songs.add(song)

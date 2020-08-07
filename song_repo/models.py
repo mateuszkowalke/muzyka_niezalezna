@@ -6,11 +6,6 @@ class Artist(models.Model):
 
     name = models.CharField(max_length=128)
 
-    class Meta:
-
-        verbose_name = 'Artist'
-        verbose_name_plural = 'Artists'
-
     def __str__(self):
         return f"Artist: {self.name}"
 
@@ -25,11 +20,6 @@ class Cover(models.Model):
     medium = models.FileField(upload_to='tests')
     large = models.FileField(upload_to='tests')
 
-    class Meta:
-
-        verbose_name = 'Cover'
-        verbose_name_plural = 'Covers'
-
     def __str__(self):
         return "Cover file"
 
@@ -43,13 +33,8 @@ class Genre(models.Model):
     name = models.CharField(max_length=128)
     default_cover = models.ForeignKey(Cover, on_delete=models.PROTECT)
 
-    class Meta:
-
-        verbose_name = 'Genre'
-        verbose_name_plural = 'Genres'
-
     def __str__(self):
-        return f"Genre: {self.title}"
+        return f"Genre: {self.name}"
 
     def get_absolute_url(self):
         # TODO
@@ -64,11 +49,6 @@ class Album(models.Model):
     genre = models.ManyToManyField(Genre)
     release_date = models.DateField()
 
-    class Meta:
-
-        verbose_name = 'Album'
-        verbose_name_plural = 'Albums'
-
     def __str__(self):
         return f"Album: {self.title}"
 
@@ -79,10 +59,10 @@ class Album(models.Model):
 
 class Song(models.Model):
 
-    title = models.CharField(max_length=128, null=True, blank=True)
-    artists = models.ManyToManyField(Artist)
-    albums = models.ManyToManyField(Album)
-    genres = models.ManyToManyField(Genre)
+    title = models.CharField(max_length=128)
+    artists = models.ManyToManyField(Artist, blank=True)
+    albums = models.ManyToManyField(Album, blank=True)
+    genres = models.ManyToManyField(Genre, blank=True)
     cover = models.ForeignKey(
         Cover, on_delete=models.PROTECT, null=True, blank=True)
     file = models.FileField(upload_to='tests', null=True, blank=True)
@@ -92,11 +72,6 @@ class Song(models.Model):
     buys = models.IntegerField(default=0)
     price = models.DecimalField(
         max_digits=8, decimal_places=2, null=True, blank=True)
-
-    class Meta:
-
-        verbose_name = 'Song'
-        verbose_name_plural = 'Songs'
 
     def __str__(self):
         return f"Song: {self.title}"
@@ -124,14 +99,9 @@ class Playlist(models.Model):
 
     name = models.CharField(max_length=128)
     songs = models.ManyToManyField(Song)
-    # TODO
+    # TODO - add to factory
     owner = None
     public = models.BooleanField()
-
-    class Meta:
-
-        verbose_name = 'Playlist'
-        verbose_name_plural = 'Playlists'
 
     def __str__(self):
         return f"Playlist: {self.name}"
