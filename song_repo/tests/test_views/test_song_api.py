@@ -38,8 +38,6 @@ def test_get_valid_song():
     song = SongFactory()
     client = APIClient()
     response = client.get(reverse('song_repo:songs-detail', args=[song.id]))
-    serializer = SongSerializer(song)
-    print(Song.objects.get(id=song.id).file)
     assert response.status_code == 200
     # TODO
     # assert response.data == serializer.data
