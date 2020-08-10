@@ -9,9 +9,6 @@ class Artist(models.Model):
     def __str__(self):
         return f"Artist: {self.name}"
 
-    def get_absolute_url(self):
-        return reverse('song_repo:artists-detail', kwargs={'pk': self.pk})
-
 
 class Cover(models.Model):
 
@@ -22,9 +19,6 @@ class Cover(models.Model):
     def __str__(self):
         return "Cover file"
 
-    def get_absolute_url(self):
-        return reverse('song_repo:covers-detail', kwargs={'pk': self.pk})
-
 
 class Genre(models.Model):
 
@@ -33,9 +27,6 @@ class Genre(models.Model):
 
     def __str__(self):
         return f"Genre: {self.name}"
-
-    def get_absolute_url(self):
-        return reverse('song_repo:genres-detail', kwargs={'pk': self.pk})
 
 
 class Album(models.Model):
