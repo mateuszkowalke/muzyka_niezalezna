@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.test import APIClient
 from song_repo.models import Song
 from ..factories import (
     SongFactory,
@@ -39,8 +40,8 @@ def test_song_str():
 
 @pytest.mark.django_db
 def test_song_get_absolute_url():
-    pass
-
-
-def test_crud_song():
-    pass
+    song = SongFactory()
+    client = APIClient()
+    response = client.get(song.get_absolute_url())
+    assert response.status_code == 200
+    assert response.data['id'] == song.id

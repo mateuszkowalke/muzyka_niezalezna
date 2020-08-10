@@ -10,8 +10,7 @@ class Artist(models.Model):
         return f"Artist: {self.name}"
 
     def get_absolute_url(self):
-        # TODO
-        return reverse('', kwargs={'pk': self.pk})
+        return reverse('song_repo:artists-detail', kwargs={'pk': self.pk})
 
 
 class Cover(models.Model):
@@ -24,8 +23,7 @@ class Cover(models.Model):
         return "Cover file"
 
     def get_absolute_url(self):
-        # TODO
-        return reverse('', kwargs={'pk': self.pk})
+        return reverse('song_repo:covers-detail', kwargs={'pk': self.pk})
 
 
 class Genre(models.Model):
@@ -37,8 +35,7 @@ class Genre(models.Model):
         return f"Genre: {self.name}"
 
     def get_absolute_url(self):
-        # TODO
-        return reverse('', kwargs={'pk': self.pk})
+        return reverse('song_repo:genres-detail', kwargs={'pk': self.pk})
 
 
 class Album(models.Model):
@@ -53,8 +50,7 @@ class Album(models.Model):
         return f"Album: {self.title}"
 
     def get_absolute_url(self):
-        # TODO
-        return reverse('', kwargs={'pk': self.pk})
+        return reverse('song_repo:albums-detail', kwargs={'pk': self.pk})
 
 
 class Song(models.Model):
@@ -65,7 +61,7 @@ class Song(models.Model):
     genres = models.ManyToManyField(Genre, blank=True)
     cover = models.ForeignKey(
         Cover, on_delete=models.PROTECT, null=True, blank=True)
-    file = models.FileField(upload_to='tests', null=True, blank=True)
+    file = models.FileField(upload_to='songs', null=True, blank=True)
     duration = models.PositiveSmallIntegerField(null=True, blank=True)
     release_date = models.DateField(null=True, blank=True)
     downloads = models.IntegerField(default=0)
@@ -77,8 +73,7 @@ class Song(models.Model):
         return f"Song: {self.title}"
 
     def get_absolute_url(self):
-        # TODO
-        return reverse('', kwargs={'pk': self.pk})
+        return reverse('song_repo:songs-detail', kwargs={'pk': self.pk})
 
     def get_song_cover(self):
         if self.cover:
@@ -107,5 +102,4 @@ class Playlist(models.Model):
         return f"Playlist: {self.name}"
 
     def get_absolute_url(self):
-        # TODO
-        return reverse('', kwargs={'pk': self.pk})
+        return reverse('song_repo:playlists-detail', kwargs={'pk': self.pk})

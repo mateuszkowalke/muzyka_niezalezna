@@ -2,6 +2,7 @@ from ..factories import SongFactory
 from song_repo.serializers import SongSerializer
 from song_repo.models import Song
 from rest_framework.test import APIClient
+from django.urls import reverse
 import pytest
 
 
@@ -9,7 +10,7 @@ import pytest
 def test_get_songs():
     SongFactory.create_batch(size=5)
     client = APIClient()
-    response = client.get('/api/song_repo/')
+    response = client.get(reverse('song_repo:songs-list'))
     serializer = SongSerializer(data=Song.objects.all(), many=True)
     serializer.is_valid()
     assert response.status_code == 200
@@ -26,7 +27,7 @@ def test_post_song():
         'duration': 2,
         'downloads': 2
     }
-    response = client.post('/api/song_repo/', data=data)
+    response = client.post(reverse('song_repo:songs-list'), data=data)
     assert response.status_code == 201
     assert Song.objects.filter(
         title='testpost', duration=2, downloads=2).count() == 1
@@ -36,7 +37,7 @@ def test_post_song():
 def test_get_valid_song():
     song = SongFactory()
     client = APIClient()
-    response = client.get(f'/api/song_repo/{song.id}/')
+    response = client.get(reverse('song_repo:songs-detail', args=[song.id]))
     serializer = SongSerializer(song)
     print(Song.objects.get(id=song.id).file)
     assert response.status_code == 200
@@ -49,7 +50,7 @@ def test_get_invalid_song():
     song = SongFactory()
     song.id = 't'
     client = APIClient()
-    response = client.get(f'/api/song_repo/{song.id}/')
+    response = client.get(reverse('song_repo:songs-detail', args=[song.id]))
     assert response.status_code == 404
 
 
@@ -60,7 +61,8 @@ def test_put_valid_song():
         'title': 'new title'
     }
     client = APIClient()
-    response = client.put(f'/api/song_repo/{song.id}/', data=data)
+    response = client.put(
+        reverse('song_repo:songs-detail', args=[song.id]), data=data)
     assert response.status_code == 200
     assert Song.objects.get(id=song.id).title == 'new title'
 
@@ -72,7 +74,8 @@ def test_put_invalid_song():
         'title': ''
     }
     client = APIClient()
-    response = client.put(f'/api/song_repo/{song.id}/', data=data)
+    response = client.put(
+        reverse('song_repo:songs-detail', args=[song.id]), data=data)
     assert response.status_code == 400
 
 
@@ -80,7 +83,7 @@ def test_put_invalid_song():
 def test_delete_valid_song():
     song = SongFactory()
     client = APIClient()
-    response = client.delete(f'/api/song_repo/{song.id}/')
+    response = client.delete(reverse('song_repo:songs-detail', args=[song.id]))
     assert response.status_code == 204
     assert Song.objects.filter(id=song.id).count() == 0
 
@@ -89,6 +92,6 @@ def test_delete_valid_song():
 def test_delete_invalid_song():
     song = SongFactory()
     client = APIClient()
-    response = client.delete(f'/api/song_repo/t/')
+    response = client.delete(reverse('song_repo:songs-detail', args=['t']))
     assert response.status_code == 404
     assert Song.objects.filter(id=song.id).count() == 1

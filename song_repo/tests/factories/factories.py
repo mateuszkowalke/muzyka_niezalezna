@@ -7,7 +7,8 @@ from song_repo.models import (
     Genre,
     Album,
     Song,
-    Playlist)
+    Playlist
+)
 
 
 fake = Faker()

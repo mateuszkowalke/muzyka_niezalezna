@@ -1,4 +1,5 @@
 import pytest
+from rest_framework.test import APIClient
 from song_repo.models import Genre
 from ..factories import GenreFactory
 
@@ -11,4 +12,8 @@ def test_genre_str():
 
 @pytest.mark.django_db
 def test_genre_get_absolute_url():
-    pass
+    genre = GenreFactory()
+    client = APIClient()
+    response = client.get(genre.get_absolute_url())
+    assert response.status_code == 200
+    assert response.data['id'] == genre.id
