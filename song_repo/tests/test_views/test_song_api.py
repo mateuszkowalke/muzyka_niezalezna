@@ -23,14 +23,14 @@ def test_get_songs():
 def test_post_song():
     client = APIClient()
     data = {
-        'title': 'testpost',
+        'title': 'testsong',
         'duration': 2,
         'downloads': 2
     }
     response = client.post(reverse('song_repo:songs-list'), data=data)
     assert response.status_code == 201
     assert Song.objects.filter(
-        title='testpost', duration=2, downloads=2).count() == 1
+        title='testsong', duration=2, downloads=2).count() == 1
 
 
 @pytest.mark.django_db
@@ -56,13 +56,13 @@ def test_get_invalid_song():
 def test_put_valid_song():
     song = SongFactory()
     data = {
-        'title': 'new title'
+        'title': 'test song'
     }
     client = APIClient()
     response = client.put(
         reverse('song_repo:songs-detail', args=[song.id]), data=data)
     assert response.status_code == 200
-    assert Song.objects.get(id=song.id).title == 'new title'
+    assert Song.objects.get(id=song.id).title == 'test song'
 
 
 @ pytest.mark.django_db

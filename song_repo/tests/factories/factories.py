@@ -14,7 +14,6 @@ from song_repo.models import (
 fake = Faker()
 
 
-# Factories
 class ArtistFactory(factory.DjangoModelFactory):
     class Meta:
         model = Artist

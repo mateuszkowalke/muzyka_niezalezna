@@ -32,10 +32,11 @@ class Genre(models.Model):
 class Album(models.Model):
 
     title = models.CharField(max_length=128)
-    artists = models.ManyToManyField(Artist)
-    cover = models.ForeignKey(Cover, on_delete=models.PROTECT)
-    genre = models.ManyToManyField(Genre)
-    release_date = models.DateField()
+    artists = models.ManyToManyField(Artist, blank=True)
+    cover = models.ForeignKey(
+        Cover, on_delete=models.PROTECT, null=True, blank=True)
+    genre = models.ManyToManyField(Genre, blank=True)
+    release_date = models.DateField(null=True, blank=True)
 
     def __str__(self):
         return f"Album: {self.title}"
