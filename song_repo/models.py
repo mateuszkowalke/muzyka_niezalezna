@@ -85,10 +85,10 @@ class Song(models.Model):
 class Playlist(models.Model):
 
     name = models.CharField(max_length=128)
-    songs = models.ManyToManyField(Song)
+    songs = models.ManyToManyField(Song, blank=True)
     # TODO - add to factory
     owner = None
-    public = models.BooleanField()
+    public = models.BooleanField(default=False)
 
     def __str__(self):
         return f"Playlist: {self.name}"
