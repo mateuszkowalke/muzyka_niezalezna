@@ -26,10 +26,6 @@ RUN pip3 install pipenv==2018.11.26
 RUN pipenv install --skip-lock --system --dev
 WORKDIR /app/frontend
 RUN npm install
-RUN (npm run dev&)
-WORKDIR /app/frontend/static/frontend
-RUN (sass --watch styles.scss:styles.css --style compressed&)
-
 
 WORKDIR /app
 EXPOSE 8000

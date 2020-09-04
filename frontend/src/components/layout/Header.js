@@ -7,35 +7,35 @@ export default class Header extends Component {
       <header>
         <a href="#">
           <img
-            class="header header--img centered-vertically"
+            className="header header--img centered-vertically"
             src="/static/frontend/img/top_logo.png"
             alt="Logo Muzyka Niezależna"
           />
         </a>
-        <nav class="header centered">
-          <ul class="navbar">
-            <li class="navbar">
+        <nav className="header centered">
+          <ul className="navbar">
+            <li className="navbar">
               <a href="#">
                 <img
-                  class="navbar--img"
+                  className="navbar--img"
                   src="/static/frontend/img/icon_sluchaj.png"
                   alt="Słuchaj muzyki"
                 />
               </a>
             </li>
-            <li class="navbar">
+            <li className="navbar">
               <a href="#">
                 <img
-                  class="navbar--img"
+                  className="navbar--img"
                   src="/static/frontend/img/icon_kupuj.png"
                   alt="Kupuj muzykę"
                 />
               </a>
             </li>
-            <li class="navbar">
+            <li className="navbar">
               <a href="#">
                 <img
-                  class="navbar--img"
+                  className="navbar--img"
                   src="/static/frontend/img/icon_odtwarzaj.png"
                   alt="Odtwarzaj publicznie"
                 />
@@ -43,16 +43,16 @@ export default class Header extends Component {
             </li>
           </ul>
         </nav>
-        <div class="login">
-          <h4 class="login--h4 centered">
-            <a class="login--a" href="#">
+        <div className="login">
+          <h4 className="login--h4 centered">
+            <a className="login--a" href="#">
               Zaloguj&nbsp;się
             </a>
           </h4>
-          <p class="login--p">
+          <p className="login--p">
             Nie masz konta?
             <br />
-            <a class="login--a" href="#">
+            <a className="login--a" href="#">
               Zarejestruj się
             </a>
           </p>

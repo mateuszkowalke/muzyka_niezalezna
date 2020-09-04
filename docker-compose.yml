@@ -13,14 +13,9 @@ services:
   muzyka_niezalezna:
     build:
       context: .
+    container_name: muzyka_niezalezna
+    depends_on: [db]
     volumes:
-      - ./:/usr/app
+      - ~/muzyka_niezalezna:/usr/app
     ports:
       - 8000:8000
-    # environment:
-    #     DB_CONNECTION: pg
-    #     DB_HOST: db ## same as the database service name
-    #     DB_PORT: 5432
-    #     DB_USER: mateuszkowalke
-    #     DB_DATABASE: muzyka_niezalezna
-    #     DB_PASSWORD: 63eaQB9wtLqmNBpg
